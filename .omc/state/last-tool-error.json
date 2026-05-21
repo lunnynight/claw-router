@@ -1,7 +1,0 @@
-{
-  "tool_name": "Bash",
-  "tool_input_preview": "{\"command\":\"PY=\\\"/c/Users/Administrator/AppData/Local/Programs/Python/Python311/python.exe\\\" && cd D:/projects/claw-router && $PY -m pytest tests/ -v --timeout=10 2>&1\",\"timeout\":120000,\"description\":...",
-  "error": "Exit code 4\nERROR: usage: __main__.py [options] [file_or_dir] [file_or_dir] [...]\r\n__main__.py: error: unrecognized arguments: --timeout=10\r\n  inifile: D:\\projects\\claw-router\\pyproject.toml\r\n  rootdir: D:\\projects\\claw-router",
-  "timestamp": "2026-03-11T10:51:31.273Z",
-  "retry_count": 1
-}

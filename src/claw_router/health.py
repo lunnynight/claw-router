@@ -45,7 +45,11 @@ class HealthChecker:
         if client is None:
             return
         for name, hub in self.config.hubs.items():
-            await self._ping(client, name, f"{hub.base}/v1/models")
+            base = hub.base.rstrip("/")
+            if base.endswith(("/v1", "/v3")):
+                await self._ping(client, name, f"{base}/models")
+            else:
+                await self._ping(client, name, f"{base}/v1/models")
         for name, upstream in self.config.upstreams.items():
             await self._ping(client, f"upstream:{name}", upstream.base, follow=True)
 

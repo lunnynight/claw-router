@@ -1,62 +1,108 @@
-upstreams:
-  ark:
-    base: "https://ark.cn-beijing.volces.com/api/coding/v1"
-    protocol: anthropic
-    auth: "${ARK_API_KEY}"
-    timeout: 120
+# 本地 claw-router — ShinkaEvolve 专用
+# 统一路由: ShinkaEvolve → localhost:3457 → 三个 key 源
 
-  cliproxy:
-    base: "http://127.0.0.1:8317"
+upstreams:
+  ark-coding:
+    base: "https://ark.cn-beijing.volces.com/api/coding/v3"
     protocol: openai
-    auth: "${CLIPROXY_KEY}"
+    auth: "${ARK_API_KEY}"
     timeout: 300
 
 hubs:
-  kimi:
-    base: "http://10.10.0.3:8010"
-    model: moonshot-v1
-    auth: "${HUB_KIMI_AUTH}"
-  deepseek:
-    base: "http://10.10.0.3:8011"
-    model: deepseek-chat
-    auth: "${HUB_DEEPSEEK_AUTH}"
-  deepseek-think:
-    base: "http://10.10.0.3:8011"
-    model: deepseek-think
-    auth: "${HUB_DEEPSEEK_AUTH}"
-  glm:
-    base: "http://10.10.0.3:8013"
+  # --- 火山引擎 ARK Coding Plan (8模型) ---
+  doubao-seed-2.0-code:
+    base: "https://ark.cn-beijing.volces.com/api/coding/v3"
+    model: doubao-seed-2.0-code
+    auth: "${ARK_API_KEY}"
+  doubao-seed-2.0-pro:
+    base: "https://ark.cn-beijing.volces.com/api/coding/v3"
+    model: doubao-seed-2.0-pro
+    auth: "${ARK_API_KEY}"
+  doubao-seed-2.0-lite:
+    base: "https://ark.cn-beijing.volces.com/api/coding/v3"
+    model: doubao-seed-2.0-lite
+    auth: "${ARK_API_KEY}"
+  doubao-seed-code:
+    base: "https://ark.cn-beijing.volces.com/api/coding/v3"
+    model: doubao-seed-code
+    auth: "${ARK_API_KEY}"
+  minimax-m2.5:
+    base: "https://ark.cn-beijing.volces.com/api/coding/v3"
+    model: minimax-m2.5
+    auth: "${ARK_API_KEY}"
+  glm-4.7:
+    base: "https://ark.cn-beijing.volces.com/api/coding/v3"
     model: glm-4.7
-    auth: "${HUB_GLM_AUTH}"
-  doubao:
-    base: "http://10.10.0.3:8014"
-    model: doubao
-    auth: "${HUB_DOUBAO_AUTH}"
-  minimax:
-    base: "http://10.10.0.3:8017"
-    model: MiniMax-M2
-    auth: "${HUB_MINIMAX_AUTH}"
-  metaso:
-    base: "http://10.10.0.3:8019"
-    model: research
-    auth: "${HUB_METASO_AUTH}"
-  qwen:
-    base: "http://10.10.0.3:8012"
-    model: qwen-max
-    auth: "${HUB_QWEN_AUTH}"
-  yuanbao:
-    base: "http://10.10.0.3:8015"
-    model: hunyuan
-    auth: "${HUB_YUANBAO_AUTH}"
-  gemini:
-    base: "http://10.10.0.3:8020"
-    model: gemini-3.1-pro
-    auth: ""
-  gemini-flash:
-    base: "http://10.10.0.3:8020"
-    model: gemini-3.0-flash
-    auth: ""
-  gemini-think:
-    base: "http://10.10.0.3:8020"
-    model: gemini-3.0-flash-thinking
-    auth: ""
+    auth: "${ARK_API_KEY}"
+  deepseek-v3.2:
+    base: "https://ark.cn-beijing.volces.com/api/coding/v3"
+    model: deepseek-v3.2
+    auth: "${ARK_API_KEY}"
+  kimi-k2.5:
+    base: "https://ark.cn-beijing.volces.com/api/coding/v3"
+    model: kimi-k2.5
+    auth: "${ARK_API_KEY}"
+
+  # --- 联通中转站 8.130.53.188 (27模型, T0-T3) ---
+  glm-5:
+    base: "http://8.130.53.188:3000/v1"
+    model: GLM-5
+    auth: "${UNICOM_KEY}"
+  kimi-k2.5-unicom:
+    base: "http://8.130.53.188:3000/v1"
+    model: Kimi-K2.5
+    auth: "${UNICOM_KEY}"
+  deepseek-v3.2-unicom:
+    base: "http://8.130.53.188:3000/v1"
+    model: DeepSeek-V3.2
+    auth: "${UNICOM_KEY}"
+  qwen3-coder:
+    base: "http://8.130.53.188:3000/v1"
+    model: Qwen3-Coder
+    auth: "${UNICOM_KEY}"
+  # Tier 1 (联通中转, hub name 不能以 gpt-/claude- 开头)
+  o54-med:
+    base: "http://8.130.53.188:3000/v1"
+    model: "gpt-5.4(medium)"
+    auth: "${UNICOM_KEY}"
+  o53-codex-med:
+    base: "http://8.130.53.188:3000/v1"
+    model: "gpt-5.3-codex(medium)"
+    auth: "${UNICOM_KEY}"
+  # 第二个联通 key (codex 分组, 0.4x 倍率)
+  o53-codex-med-b:
+    base: "http://8.130.53.188:3000/v1"
+    model: "gpt-5.3-codex(medium)"
+    auth: "${UNICOM_KEY2}"
+  o54-med-b:
+    base: "http://8.130.53.188:3000/v1"
+    model: "gpt-5.4(medium)"
+    auth: "${UNICOM_KEY2}"
+  deepseek-v3.2-unicom-b:
+    base: "http://8.130.53.188:3000/v1"
+    model: DeepSeek-V3.2
+    auth: "${UNICOM_KEY2}"
+  sonnet46-unicom:
+    base: "http://8.130.53.188:3000/v1"
+    model: claude-sonnet-4-6
+    auth: "${UNICOM_KEY}"
+
+  # --- MiniMax (codexcc.top) ---
+  minimax-m2.7:
+    base: "https://api.codexcc.top/v1"
+    model: MiniMax-M2.7-highspeed
+    auth: "${MINIMAX_KEY}"
+
+  # --- Kimi Code (官方, 需 User-Agent: claude-code) ---
+  kimi-code:
+    base: "https://api.kimi.com/coding/v1"
+    model: kimi-k2
+    auth: "${KIMI_CODE_KEY}"
+    extra_headers:
+      User-Agent: "claude-code/1.0"
+  kimi-code-2:
+    base: "https://api.kimi.com/coding/v1"
+    model: kimi-k2
+    auth: "${KIMI_CODE_KEY2}"
+    extra_headers:
+      User-Agent: "claude-code/1.0"

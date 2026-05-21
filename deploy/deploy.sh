@@ -1,9 +1,9 @@
 #!/bin/bash
-# Deploy claw-router to 新腾讯云 (43.156.202.94 / 10.10.0.6)
+# Deploy claw-router to production server
 set -e
 
-TARGET="root@43.156.202.94"
-REMOTE_DIR="/opt/claw-router"
+TARGET="${DEPLOY_TARGET:-root@your-server-ip}"
+REMOTE_DIR="${DEPLOY_DIR:-/opt/claw-router}"
 
 echo "==> Syncing to $TARGET:$REMOTE_DIR"
 rsync -avz --exclude '.venv' --exclude '__pycache__' --exclude '.env' --exclude '*.egg-info' \
@@ -21,4 +21,4 @@ ssh "$TARGET" "cp $REMOTE_DIR/deploy/claw-router.service /etc/systemd/system/ &&
 echo "==> Restarting service"
 ssh "$TARGET" "systemctl restart claw-router && sleep 2 && systemctl status claw-router --no-pager"
 
-echo "==> Done! Test: curl http://10.10.0.6:3456/health"
+echo "==> Done! Test: curl http://\$TARGET_IP:3456/health"

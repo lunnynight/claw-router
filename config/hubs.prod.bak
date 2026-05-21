@@ -1,0 +1,69 @@
+# 本地 claw-router — 全部走 hub (OpenAI 协议)
+# ARK = /api/coding/v3 (OpenAI兼容, Bearer auth, URL fix 自动处理 /v3)
+
+upstreams: {}
+
+hubs:
+  # --- 火山引擎 ARK (OpenAI /v3 端点) ---
+  doubao-seed-2.0-code:
+    base: "https://ark.cn-beijing.volces.com/api/coding/v3"
+    model: doubao-seed-2.0-code
+    auth: "${ARK_API_KEY}"
+  doubao-seed-2.0-pro:
+    base: "https://ark.cn-beijing.volces.com/api/coding/v3"
+    model: doubao-seed-2.0-pro
+    auth: "${ARK_API_KEY}"
+  doubao-seed-2.0-lite:
+    base: "https://ark.cn-beijing.volces.com/api/coding/v3"
+    model: doubao-seed-2.0-lite
+    auth: "${ARK_API_KEY}"
+  doubao-seed-code:
+    base: "https://ark.cn-beijing.volces.com/api/coding/v3"
+    model: doubao-seed-code
+    auth: "${ARK_API_KEY}"
+  minimax-m2.5:
+    base: "https://ark.cn-beijing.volces.com/api/coding/v3"
+    model: minimax-m2.5
+    auth: "${ARK_API_KEY}"
+  glm-4.7:
+    base: "https://ark.cn-beijing.volces.com/api/coding/v3"
+    model: glm-4.7
+    auth: "${ARK_API_KEY}"
+  deepseek-v3.2:
+    base: "https://ark.cn-beijing.volces.com/api/coding/v3"
+    model: deepseek-v3.2
+    auth: "${ARK_API_KEY}"
+  kimi-k2.5:
+    base: "https://ark.cn-beijing.volces.com/api/coding/v3"
+    model: kimi-k2.5
+    auth: "${ARK_API_KEY}"
+
+  # --- GLM-5 (mydamoxing.cn) ---
+  glm-5:
+    base: "https://mydamoxing.cn/v1"
+    model: glm-5
+    auth: "${GLM5_KEY}"
+  glm-5-turbo:
+    base: "https://mydamoxing.cn/v1"
+    model: glm-5-turbo
+    auth: "${GLM5_KEY}"
+
+  # --- 阿里云百炼 (ai-yuanjing.com) ---
+  qwen-plus:
+    base: "https://maas-api.ai-yuanjing.com/openapi/compatible-mode/v1"
+    model: qwen-plus
+    auth: "${YUANJING_KEY}"
+  qwen-max:
+    base: "https://maas-api.ai-yuanjing.com/openapi/compatible-mode/v1"
+    model: qwen-max
+    auth: "${YUANJING_KEY}"
+  qwen-coder-plus:
+    base: "https://maas-api.ai-yuanjing.com/openapi/compatible-mode/v1"
+    model: qwen-coder-plus
+    auth: "${YUANJING_KEY}"
+
+  # --- MiniMax (codexcc.top) ---
+  minimax-m2.7:
+    base: "https://api.codexcc.top/v1"
+    model: MiniMax-M2.7-highspeed
+    auth: "${MINIMAX_KEY}"

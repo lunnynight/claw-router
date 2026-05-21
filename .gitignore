@@ -7,3 +7,10 @@ build/
 .venv/
 .mypy_cache/
 .ruff_cache/
+.omc/
+.pytest_cache/
+.omx/
+.gitnexus
+
+config/hubs.local.yaml
+config/local.env

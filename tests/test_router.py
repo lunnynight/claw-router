@@ -2,7 +2,7 @@
 
 import re
 import pytest
-from claw_router.router import classify_request, pick_model, parse_model, has_image_content, extract_text
+from claw_router.router import classify_request, pick_model, parse_model, has_image_content, extract_text, get_fallback_candidates
 from claw_router.breaker import CircuitBreaker
 
 
@@ -106,6 +106,38 @@ class TestParseModel:
 
     def test_guess_ark_default(self):
         assert parse_model("some-model") == ("ark", "some-model")
+
+
+class TestFallbackCandidates:
+    def test_returns_all_for_capability(self):
+        breaker = CircuitBreaker()
+        candidates = get_fallback_candidates("code", ROUTES, breaker)
+        assert candidates[0] == "hub:deepseek"
+        assert "ark:doubao-seed-2.0-code" in candidates
+
+    def test_appends_default_as_fallback(self):
+        breaker = CircuitBreaker()
+        candidates = get_fallback_candidates("code", ROUTES, breaker)
+        # default models appended after code models
+        assert "hub:gemini" in candidates
+        assert "hub:qwen" in candidates
+
+    def test_skips_open_circuits(self):
+        breaker = CircuitBreaker()
+        breaker.open_until["hub:deepseek"] = 9999999999
+        candidates = get_fallback_candidates("code", ROUTES, breaker)
+        assert "hub:deepseek" not in candidates
+
+    def test_excludes_tried(self):
+        breaker = CircuitBreaker()
+        candidates = get_fallback_candidates("code", ROUTES, breaker, exclude={"hub:deepseek"})
+        assert "hub:deepseek" not in candidates
+        assert candidates[0] == "ark:doubao-seed-2.0-code"
+
+    def test_default_no_duplicates(self):
+        breaker = CircuitBreaker()
+        candidates = get_fallback_candidates("default", ROUTES, breaker)
+        assert len(candidates) == len(set(candidates))
 
 
 class TestHelpers:

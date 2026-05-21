@@ -1,0 +1,139 @@
+# Upstream providers (protocol-specific)
+upstreams:
+  ark:
+    base: "https://ark.cn-beijing.volces.com/api/coding/v1"
+    protocol: anthropic
+    auth: "${ARK_API_KEY}"
+    timeout: 120
+
+  cliproxy:
+    base: "http://127.0.0.1:8317"
+    protocol: openai
+    auth: "${CLIPROXY_KEY}"
+    timeout: 300
+
+# Free LLM hubs (OpenAI-compatible)
+# Replace base URLs with your actual hub endpoints
+hubs:
+  kimi:
+    base: "http://localhost:8010"
+    model: moonshot-v1
+    auth: "${HUB_KIMI_AUTH}"
+  deepseek:
+    base: "http://localhost:8011"
+    model: deepseek-chat
+    auth: "${HUB_DEEPSEEK_AUTH}"
+  deepseek-think:
+    base: "http://localhost:8011"
+    model: deepseek-think
+    auth: "${HUB_DEEPSEEK_AUTH}"
+  glm:
+    base: "http://localhost:8013"
+    model: glm-4.7
+    auth: "${HUB_GLM_AUTH}"
+  doubao:
+    base: "http://localhost:8014"
+    model: doubao
+    auth: "${HUB_DOUBAO_AUTH}"
+  minimax:
+    base: "http://localhost:8017"
+    model: MiniMax-M2
+    auth: "${HUB_MINIMAX_AUTH}"
+  metaso:
+    base: "http://localhost:8019"
+    model: research
+    auth: "${HUB_METASO_AUTH}"
+  qwen:
+    base: "http://localhost:8012"
+    model: qwen-max
+    auth: "${HUB_QWEN_AUTH}"
+  yuanbao:
+    base: "http://localhost:8015"
+    model: hunyuan
+    auth: "${HUB_YUANBAO_AUTH}"
+  unicom-glm5:
+    base: "https://maas-api.ai-yuanjing.com/openapi/compatible-mode/v1"
+    model: glm-5
+    auth: "${UNICOM_GLM5_KEY}"
+  gemini:
+    base: "http://localhost:8020"
+    model: gemini-3.1-pro
+    auth: ""
+  gemini-flash:
+    base: "http://localhost:8020"
+    model: gemini-3.0-flash
+    auth: ""
+  gemini-think:
+    base: "http://localhost:8020"
+    model: gemini-3.0-flash-thinking
+    auth: ""
+
+  # OpenRouter free — Heavy (70B+) — KEY1/KEY2 交替分散限流
+  or-hermes-405b:
+    base: "http://100.80.58.61:8443/api"
+    model: nousresearch/hermes-3-llama-3.1-405b:free
+    auth: "${OPENROUTER_KEY}"
+  or-gpt-oss-120b:
+    base: "http://100.80.58.61:8443/api"
+    model: openai/gpt-oss-120b:free
+    auth: "${OPENROUTER_KEY2}"
+  or-nemotron-120b:
+    base: "http://100.80.58.61:8443/api"
+    model: nvidia/nemotron-3-super-120b-a12b:free
+    auth: "${OPENROUTER_KEY}"
+  or-llama-70b:
+    base: "http://100.80.58.61:8443/api"
+    model: meta-llama/llama-3.3-70b-instruct:free
+    auth: "${OPENROUTER_KEY2}"
+  # OpenRouter free — Code
+  or-qwen-coder:
+    base: "http://100.80.58.61:8443/api"
+    model: qwen/qwen3-coder:free
+    auth: "${OPENROUTER_KEY}"
+  or-gpt-oss-20b:
+    base: "http://100.80.58.61:8443/api"
+    model: openai/gpt-oss-20b:free
+    auth: "${OPENROUTER_KEY2}"
+  # OpenRouter free — Fast
+  or-step-flash:
+    base: "http://100.80.58.61:8443/api"
+    model: stepfun/step-3.5-flash:free
+    auth: "${OPENROUTER_KEY}"
+  or-glm-air:
+    base: "http://100.80.58.61:8443/api"
+    model: z-ai/glm-4.5-air:free
+    auth: "${OPENROUTER_KEY2}"
+  or-gemma-27b:
+    base: "http://100.80.58.61:8443/api"
+    model: google/gemma-3-27b-it:free
+    auth: "${OPENROUTER_KEY}"
+  or-gemma-12b:
+    base: "http://100.80.58.61:8443/api"
+    model: google/gemma-3-12b-it:free
+    auth: "${OPENROUTER_KEY2}"
+  or-mistral-24b:
+    base: "http://100.80.58.61:8443/api"
+    model: mistralai/mistral-small-3.1-24b-instruct:free
+    auth: "${OPENROUTER_KEY}"
+  or-minimax:
+    base: "http://100.80.58.61:8443/api"
+    model: minimax/minimax-m2.5:free
+    auth: "${OPENROUTER_KEY2}"
+  # OpenRouter free — Long context / Router
+  or-hunter:
+    base: "http://100.80.58.61:8443/api"
+    model: openrouter/hunter-alpha
+    auth: "${OPENROUTER_KEY}"
+  or-free:
+    base: "http://100.80.58.61:8443/api"
+    model: openrouter/free
+    auth: "${OPENROUTER_KEY2}"
+  # OpenRouter free — Reasoning
+  or-qwen3-next:
+    base: "http://100.80.58.61:8443/api"
+    model: qwen/qwen3-next-80b-a3b-instruct:free
+    auth: "${OPENROUTER_KEY}"
+  or-nemotron-nano:
+    base: "http://100.80.58.61:8443/api"
+    model: nvidia/nemotron-nano-9b-v2:free
+    auth: "${OPENROUTER_KEY2}"

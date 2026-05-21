@@ -77,7 +77,11 @@ def _prepare_request(
         hub_cfg = config.hubs.get(model_id)
         if not hub_cfg:
             raise ValueError(f"Unknown hub: {model_id}")
-        url = f"{hub_cfg.base}/v1/chat/completions"
+        # 如果 base 已经带 /v3 或 /v1，不再重复加 /v1
+        if hub_cfg.base.rstrip("/").endswith(("/v1", "/v3")):
+            url = f"{hub_cfg.base.rstrip('/')}/chat/completions"
+        else:
+            url = f"{hub_cfg.base}/v1/chat/completions"
         hub_body = dict(body)
         hub_body["model"] = hub_cfg.model
         if stream:
@@ -85,6 +89,8 @@ def _prepare_request(
         headers = {"Content-Type": "application/json"}
         if hub_cfg.auth:
             headers["Authorization"] = f"Bearer {hub_cfg.auth}"
+        if hub_cfg.extra_headers:
+            headers.update(hub_cfg.extra_headers)
         payload = json.dumps(hub_body).encode()
 
     else:
